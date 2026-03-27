@@ -37,17 +37,14 @@ const HomeScreen: React.FC = () => {
     navigation.navigate('Detail', {movieId: movie.id});
   };
 
-  // Flatten all pages into single array
   const movies = data?.pages.flatMap(page => page.results) ?? [];
 
-  // Handle load more when reaching end of list
   const handleLoadMore = () => {
     if (hasNextPage && !isFetchingNextPage) {
       fetchNextPage();
     }
   };
 
-  // Render footer loading indicator
   const renderFooter = () => {
     if (!isFetchingNextPage) return null;
     return (

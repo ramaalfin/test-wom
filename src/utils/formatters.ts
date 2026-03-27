@@ -1,4 +1,3 @@
-// Format date from YYYY-MM-DD to readable format
 export const formatDate = (dateString: string): string => {
     if (!dateString) return 'N/A';
 
@@ -12,7 +11,6 @@ export const formatDate = (dateString: string): string => {
     return date.toLocaleDateString('en-US', options);
 };
 
-// Format runtime from minutes to hours and minutes
 export const formatRuntime = (minutes: number): string => {
     if (!minutes) return 'N/A';
 
@@ -25,7 +23,6 @@ export const formatRuntime = (minutes: number): string => {
     return `${mins}m`;
 };
 
-// Format rating to 1 decimal place
 export const formatRating = (rating: number): string => {
     return rating.toFixed(1);
 };

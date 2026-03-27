@@ -3,7 +3,7 @@ import {StyleSheet, Text, View} from 'react-native';
 import theme from '../theme';
 
 interface RatingStarsProps {
-  rating: number; // rating from 0-10
+  rating: number; 
   size?: number;
   showNumber?: boolean;
 }
@@ -13,25 +13,20 @@ const RatingStars: React.FC<RatingStarsProps> = ({
   size = 16,
   showNumber = true,
 }) => {
-  // Convert rating from 0-10 to 0-5 scale
   const stars = rating / 2;
   const fullStars = Math.floor(stars);
   const hasHalfStar = stars % 1 >= 0.5;
 
-  // Create array of stars
   const starElements = [];
   
-  // Add full stars
   for (let i = 0; i < fullStars; i++) {
     starElements.push('⭐');
   }
   
-  // Add half star if needed
   if (hasHalfStar && fullStars < 5) {
-    starElements.push('⭐'); // Using full star for simplicity
+    starElements.push('⭐'); 
   }
   
-  // Add empty stars
   const emptyStars = 5 - starElements.length;
   for (let i = 0; i < emptyStars; i++) {
     starElements.push('☆');

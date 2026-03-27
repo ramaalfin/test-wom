@@ -9,7 +9,6 @@ const useRecentSearches = () => {
     const [searches, setSearches] = useState<string[]>([]);
     const [isLoading, setIsLoading] = useState(true);
 
-    // Load recent searches on mount
     useEffect(() => {
         loadSearches();
     }, []);
@@ -23,7 +22,7 @@ const useRecentSearches = () => {
 
     const addSearch = async (keyword: string) => {
         await saveRecentSearch(keyword);
-        await loadSearches(); // Reload to get updated list
+        await loadSearches();
     };
 
     const clearAll = async () => {

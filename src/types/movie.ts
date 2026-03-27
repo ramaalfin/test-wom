@@ -25,7 +25,6 @@ export interface PaginatedResponse<T> {
   total_results: number;
 }
 
-// Movie detail types
 export interface MovieDetail extends Movie {
   runtime: number;
   genres: Genre[];
@@ -33,7 +32,6 @@ export interface MovieDetail extends Movie {
   tagline: string;
 }
 
-// Cast types
 export interface Cast {
   id: number;
   name: string;
@@ -47,7 +45,6 @@ export interface Credits {
   cast: Cast[];
 }
 
-// Review types
 export interface Review {
   id: string;
   author: string;

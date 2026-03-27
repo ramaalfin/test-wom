@@ -12,7 +12,6 @@ const useInfiniteMovies = () => {
         queryKey: movieKeys.popular(),
         queryFn: ({ pageParam = 1 }) => getPopularMovies(pageParam as number),
         getNextPageParam: (lastPage) => {
-            // Check if there are more pages
             if (lastPage.page < lastPage.total_pages) {
                 return lastPage.page + 1;
             }

@@ -63,7 +63,6 @@ const SearchScreen: React.FC = () => {
     clearAll();
   };
 
-  // Show recent searches when input is focused and no search query
   const showRecentSearches = isFocused && !searchQuery && searches.length > 0;
   const showResults = searchQuery.length > 0 && hasSearched;
   const showEmptyState = showResults && !isLoading && data?.results.length === 0;
@@ -71,7 +70,6 @@ const SearchScreen: React.FC = () => {
 
   return (
     <View style={styles.container}>
-      {/* Search Bar */}
       <View style={styles.searchContainer}>
         <TextInput
           style={styles.searchInput}
@@ -92,7 +90,6 @@ const SearchScreen: React.FC = () => {
         )}
       </View>
 
-      {/* Recent Searches */}
       {showRecentSearches && (
         <View style={styles.recentContainer}>
           <View style={styles.recentHeader}>
@@ -112,14 +109,12 @@ const SearchScreen: React.FC = () => {
         </View>
       )}
 
-      {/* Loading State */}
       {showLoading && (
         <View style={styles.center}>
           <ActivityIndicator size="large" color={theme.colors.secondary} />
         </View>
       )}
 
-      {/* Empty State */}
       {showEmptyState && (
         <EmptyState
           message="No movies found. Try a different search term."
@@ -127,7 +122,6 @@ const SearchScreen: React.FC = () => {
         />
       )}
 
-      {/* Search Results */}
       {showResults && !isLoading && data && data.results.length > 0 && (
         <FlatList
           data={data.results}
@@ -139,7 +133,6 @@ const SearchScreen: React.FC = () => {
         />
       )}
 
-      {/* Initial State */}
       {!isLoading && !showResults && !showRecentSearches && (
         <EmptyState
           message="Search for your favorite movies"
