@@ -1,6 +1,6 @@
-import React, {createContext, useContext, useEffect} from 'react';
+import React, {createContext, useContext, useState, useEffect} from 'react';
+import {useColorScheme} from 'react-native';
 import {getTheme, type Theme} from '../theme';
-import useSettingsStore from '../stores/useSettingsStore';
 
 interface ThemeContextType {
   theme: Theme;
@@ -17,11 +17,12 @@ export const useTheme = () => useContext(ThemeContext);
 export const ThemeProvider: React.FC<{children: React.ReactNode}> = ({
   children,
 }) => {
-  const {isDarkMode, loadSettings} = useSettingsStore();
+  const systemColorScheme = useColorScheme();
+  const [isDarkMode, setIsDarkMode] = useState(systemColorScheme === 'dark');
 
   useEffect(() => {
-    loadSettings();
-  }, [loadSettings]);
+    setIsDarkMode(systemColorScheme === 'dark');
+  }, [systemColorScheme]);
 
   const theme = getTheme(isDarkMode);
 

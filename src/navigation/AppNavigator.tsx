@@ -4,7 +4,6 @@ import { NavigatorScreenParams } from '@react-navigation/native';
 import TabNavigator, { TabParamList } from './TabNavigator';
 import DetailScreen from '../screens/DetailScreen';
 import useAppTheme from '../hooks/useAppTheme';
-import useSettingsStore from '../stores/useSettingsStore';
 
 /**
  * AppStackParamList
@@ -30,22 +29,21 @@ const Stack = createNativeStackNavigator<AppStackParamList>();
  * Requirements: 4.4 - Authentication Navigation Flow
  * 
  * Features:
- * - Tab navigator as the initial route (Home, Search, Favorites, Settings)
+ * - Tab navigator as the initial route (Home, Search)
  * - Detail screen for viewing item details
  * - Theme-aware header styling
  * - Supports both light and dark modes
  */
 const AppNavigator: React.FC = () => {
   const theme = useAppTheme();
-  const { isDarkMode } = useSettingsStore();
 
   return (
     <Stack.Navigator
       screenOptions={{
         headerStyle: {
-          backgroundColor: isDarkMode ? theme.colors.background : theme.colors.primary,
+          backgroundColor: theme.colors.background,
         },
-        headerTintColor: isDarkMode ? theme.colors.text.primary : theme.colors.text.inverse,
+        headerTintColor: theme.colors.text.primary,
         headerTitleStyle: {
           fontWeight: '600',
         },
