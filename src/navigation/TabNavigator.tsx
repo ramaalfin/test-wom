@@ -1,13 +1,13 @@
 import React from 'react';
 import { Text } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import HomeScreen from '../screens/HomeScreen';
-import SearchScreen from '../screens/SearchScreen';
 import useAppTheme from '../hooks/useAppTheme';
+import { HomeScreen } from '../features/home/screens';
+import { SettingsScreen } from '../features/settings/screens';
 
 export type TabParamList = {
   Home: undefined;
-  Search: undefined;
+  Setting: undefined;
 };
 
 const Tab = createBottomTabNavigator<TabParamList>();
@@ -44,12 +44,12 @@ const TabNavigator: React.FC = () => {
         }}
       />
       <Tab.Screen
-        name="Search"
-        component={SearchScreen}
+        name="Setting"
+        component={SettingsScreen}
         options={{
-          title: 'Search',
+          title: 'Setting',
           tabBarIcon: ({ color, size }) => (
-            <Text style={{ fontSize: size, color }}>🔍</Text>
+            <Text style={{ fontSize: size, color }}>⚙️</Text>
           ),
         }}
       />

@@ -1,5 +1,5 @@
 import apiClient from './client';
-import type { Item } from '../types/api.types';
+import type { Item } from '../../types/api.types';
 
 /**
  * Fetch all items from JSONPlaceholder /posts endpoint

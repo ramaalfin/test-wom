@@ -25,11 +25,11 @@ interface AuthState {
     clearError: () => void;
 }
 
-const useAuthStore = create<AuthState>((set, get) => ({
+const useAuthStore = create<AuthState>((set, _get) => ({
     user: null,
     token: null,
     isAuthenticated: false,
-    isLoading: true,
+    isLoading: false, // Start with false, will be set to true when checkAuth is called
     error: null,
 
     /**
@@ -103,6 +103,7 @@ const useAuthStore = create<AuthState>((set, get) => ({
             }
         } catch (error) {
             console.error('[AuthStore] Error checking authentication:', error);
+            // CRITICAL: Always set isLoading to false even on error
             set({
                 user: null,
                 token: null,
@@ -110,6 +111,9 @@ const useAuthStore = create<AuthState>((set, get) => ({
                 isLoading: false,
                 error: 'Failed to check authentication status'
             });
+        } finally {
+            // Extra safety: ensure isLoading is always set to false
+            console.log('[AuthStore] checkAuth completed');
         }
     },
 

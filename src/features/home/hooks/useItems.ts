@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
-import { getItems } from '../api/items';
-import type { Item } from '../types/api.types';
+import { getItems } from '../../../services/api/items';
+import type { Item } from '../../../types/api.types';
 
 /**
  * Query keys for items

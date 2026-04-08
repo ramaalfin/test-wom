@@ -8,19 +8,18 @@ import {
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import CardItem from '../components/CardItem';
-import useItems from '../hooks/useItems';
-import type { Item } from '../types/api.types';
-import type { RootStackParamList } from '../navigation/RootNavigator';
-import useAppTheme from '../hooks/useAppTheme';
-import { SkeletonCard } from '../components/LoadingSkeleton';
-import ErrorState from '../components/ErrorState';
-import EmptyState from '../components/EmptyState';
-import useAuthStore from '../stores/useAuthStore';
+import CardItem from '../../../components/CardItem';
+import type { AppStackParamList } from '../../../navigation/AppNavigator';
+import useAppTheme from '../../../hooks/useAppTheme';
+import { SkeletonCard } from '../../../components/LoadingSkeleton';
+import ErrorState from '../../../components/ErrorState';
+import EmptyState from '../../../components/EmptyState';
+import useAuthStore from '../../../stores/useAuthStore';
+import { useItems } from '../hooks';
 
 type HomeScreenNavigationProp = NativeStackNavigationProp<
-  RootStackParamList,
-  'Tabs'
+  AppStackParamList,
+  'Detail'
 >;
 
 const HomeScreen: React.FC = () => {

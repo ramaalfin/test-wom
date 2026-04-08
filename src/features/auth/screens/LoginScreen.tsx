@@ -15,31 +15,6 @@ import { useAuth } from '../hooks/useAuth';
 import { validateEmail, validatePassword } from '../services/authService';
 import { useAppTheme } from '../../../hooks/useAppTheme';
 
-/**
- * LoginScreen Component
- * 
- * Displays login form with email and password inputs.
- * Implements form validation, keyboard handling, error display, and modern UI design.
- * 
- * Requirements: 1.1, 1.2, 1.9, 1.10, 11.1, 11.2, 11.3, 11.4, 11.5, 11.8, 12.1, 12.2, 12.3, 12.4, 12.5, 12.6
- * 
- * Features:
- * - Email input with email keyboard type
- * - Password input with secure text entry
- * - Inline validation error display
- * - Loading state during authentication
- * - Keyboard dismissal on tap outside (Requirement 12.1)
- * - Focus password field when "Next" pressed on email (Requirement 12.2)
- * - Submit form when "Done" pressed on password (Requirement 12.3)
- * - KeyboardAvoidingView for layout adjustment (Requirement 12.4)
- * - Modern card-based UI design with:
- *   - 8pt spacing system (Requirement 11.1)
- *   - Rounded corners (8px/12px) (Requirement 11.2)
- *   - Soft shadows for elevation (Requirement 11.3)
- *   - Clear typography hierarchy (Requirement 11.4)
- *   - Centered form layout (Requirement 11.5)
- *   - Touchable feedback on button (Requirement 11.8)
- */
 const LoginScreen: React.FC = () => {
   const theme = useAppTheme();
   const { login, isLoading, error, clearError } = useAuth();

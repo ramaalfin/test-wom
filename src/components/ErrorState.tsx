@@ -39,8 +39,8 @@ export const ErrorState: React.FC<ErrorStateProps> = React.memo(({
           style={[
             styles.retryButtonText,
             {
-              color: theme.colors.text.inverse,
               ...theme.typography.label,
+              color: theme.colors.text.inverse,
             },
           ]}
         >

@@ -1,13 +1,13 @@
 import React from 'react';
 import {ScrollView, StyleSheet, View} from 'react-native';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
-import type {AppStackParamList} from '../navigation/AppNavigator';
-import useItemDetail from '../hooks/useItemDetail';
-import CardItem from '../components/CardItem';
-import {LoadingSkeleton, SkeletonCard} from '../components/LoadingSkeleton';
-import ErrorState from '../components/ErrorState';
-import EmptyState from '../components/EmptyState';
-import useAppTheme from '../hooks/useAppTheme';
+import type {AppStackParamList} from '../../../navigation/AppNavigator';
+import CardItem from '../../../components/CardItem';
+import {SkeletonCard} from '../../../components/LoadingSkeleton';
+import ErrorState from '../../../components/ErrorState';
+import EmptyState from '../../../components/EmptyState';
+import useAppTheme from '../../../hooks/useAppTheme';
+import { useItemDetail } from '../hooks';
 
 type DetailScreenProps = NativeStackScreenProps<AppStackParamList, 'Detail'>;
 

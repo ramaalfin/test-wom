@@ -2,7 +2,7 @@ import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigatorScreenParams } from '@react-navigation/native';
 import TabNavigator, { TabParamList } from './TabNavigator';
-import DetailScreen from '../screens/DetailScreen';
+import DetailScreen from '../features/detail/screens/DetailScreen';
 import useAppTheme from '../hooks/useAppTheme';
 
 /**

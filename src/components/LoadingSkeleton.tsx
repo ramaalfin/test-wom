@@ -49,8 +49,8 @@ export const LoadingSkeleton: React.FC<LoadingSkeletonProps> = React.memo(({
       style={[
         styles.container,
         {
-          width,
-          height,
+          width: width as any,
+          height: height as any,
           borderRadius,
           backgroundColor: theme.colors.skeleton,
         },

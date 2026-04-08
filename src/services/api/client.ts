@@ -1,5 +1,5 @@
 import axios from 'axios';
-import TokenManager from '../features/auth/services/tokenManager';
+import TokenManager from '../../features/auth/services/tokenManager';
 
 const apiClient = axios.create({
   baseURL: 'https://jsonplaceholder.typicode.com',
@@ -72,7 +72,7 @@ apiClient.interceptors.response.use(
       await TokenManager.deleteToken();
 
       // Import auth store dynamically to avoid circular dependency
-      const { default: useAuthStore } = await import('../stores/useAuthStore');
+      const { default: useAuthStore } = await import('../../stores/useAuthStore');
 
       // Trigger logout to clear auth state and navigate to login
       // This will cause RootNavigator to automatically switch to Auth stack
@@ -106,7 +106,7 @@ apiClient.interceptors.response.use(
       );
 
       // Wait before retrying
-      await new Promise(resolve => setTimeout(resolve, retryDelay));
+      await new Promise<void>(resolve => setTimeout(resolve, retryDelay));
 
       return apiClient(originalRequest);
     }

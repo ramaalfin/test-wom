@@ -9,9 +9,9 @@ import {
   View,
 } from 'react-native';
 import {useQueryClient} from '@tanstack/react-query';
-import useSettingsStore from '../stores/useSettingStore';
-import useAppTheme from '../hooks/useAppTheme';
-import useAuth from '../features/auth/hooks/useAuth';
+import useSettingsStore from '../../../stores/useSettingStore';
+import useAppTheme from '../../../hooks/useAppTheme';
+import useAuth from '../../auth/hooks/useAuth';
 
 const APP_VERSION = '0.0.1';
 
@@ -58,7 +58,7 @@ const SettingsScreen: React.FC = () => {
               await logout();
               // Clear React Query cache on logout
               queryClient.clear();
-            } catch (error) {
+            } catch {
               Alert.alert(
                 'Logout Failed',
                 'An error occurred while logging out. Please try again.',

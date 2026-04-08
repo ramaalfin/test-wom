@@ -265,33 +265,33 @@ Transform the existing Movie Search App into a production-ready React Native sta
     - Ensure smooth theme transitions
     - _Requirements: 16.2, 16.3, 16.5, 16.7_
 
-- [ ] 12. Reorganize codebase into feature-based structure
-  - [ ] 12.1 Create feature directories
+- [x] 12. Reorganize codebase into feature-based structure
+  - [x] 12.1 Create feature directories
     - Create src/features/auth with screens, hooks, services, types
     - Create src/features/home with screens, components, hooks
     - Create src/features/detail with screens, hooks
     - Create src/features/settings with screens
     - _Requirements: 9.1, 9.7_
 
-  - [ ] 12.2 Move authentication code to features/auth
+  - [x] 12.2 Move authentication code to features/auth
     - Move LoginScreen to features/auth/screens
     - Move useAuth to features/auth/hooks
     - Move AuthService and TokenManager to features/auth/services
     - Move auth types to features/auth/types
     - _Requirements: 9.1, 9.7, 9.8_
 
-  - [ ] 12.3 Move home code to features/home
+  - [x] 12.3 Move home code to features/home
     - Move HomeScreen to features/home/screens
     - Move useItems to features/home/hooks
     - Move home-specific components if any
     - _Requirements: 9.1, 9.7, 9.8_
 
-  - [ ] 12.4 Move detail code to features/detail
+  - [x] 12.4 Move detail code to features/detail
     - Move DetailScreen to features/detail/screens
     - Move useItemDetail to features/detail/hooks
     - _Requirements: 9.1, 9.7, 9.8_
 
-  - [ ] 12.5 Organize shared code
+  - [x] 12.5 Organize shared code
     - Keep shared components in src/components
     - Keep shared hooks in src/hooks
     - Keep API client in src/services/api
@@ -299,7 +299,7 @@ Transform the existing Movie Search App into a production-ready React Native sta
     - Keep theme in src/theme
     - _Requirements: 9.2, 9.3, 9.4, 9.5, 9.6_
 
-  - [ ] 12.6 Update all imports across codebase
+  - [x] 12.6 Update all imports across codebase
     - Update import paths to reflect new structure
     - Ensure no broken imports
     - Test that app builds successfully
