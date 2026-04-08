@@ -1,9 +1,3 @@
-/**
- * Authentication Type Definitions
- * 
- * Defines types for authentication-related data structures
- */
-
 export interface User {
     id: number;
     email: string;

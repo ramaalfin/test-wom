@@ -72,7 +72,6 @@ export const LoadingSkeleton: React.FC<LoadingSkeletonProps> = React.memo(({
   );
 });
 
-// Skeleton variants for common use cases
 export const SkeletonCard: React.FC<{ style?: ViewStyle }> = React.memo(({ style }) => {
   const theme = useAppTheme();
 

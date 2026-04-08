@@ -1,9 +1,3 @@
-// JSONPlaceholder API Types
-
-/**
- * Generic item from JSONPlaceholder /posts endpoint
- * Replaces Movie type from TMDB API
- */
 export interface Item {
   userId: number;
   id: number;
@@ -11,9 +5,6 @@ export interface Item {
   body: string;
 }
 
-/**
- * User from JSONPlaceholder /users endpoint
- */
 export interface ApiUser {
   id: number;
   name: string;

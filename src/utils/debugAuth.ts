@@ -1,15 +1,9 @@
-/**
- * Debug utility for authentication troubleshooting
- * Use this to check auth state in development
- */
-
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const debugAuthState = async () => {
     console.log('=== AUTH DEBUG START ===');
 
     try {
-        // Check AsyncStorage
         const token = await AsyncStorage.getItem('@auth_token');
         console.log('Token in storage:', token ? 'EXISTS' : 'NULL');
 
@@ -18,7 +12,6 @@ export const debugAuthState = async () => {
             console.log('Token preview:', token.substring(0, 50) + '...');
         }
 
-        // Check all AsyncStorage keys
         const allKeys = await AsyncStorage.getAllKeys();
         console.log('All AsyncStorage keys:', allKeys);
 

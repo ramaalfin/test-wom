@@ -4,15 +4,6 @@ import AuthService from '../features/auth/services/authService';
 import TokenManager from '../features/auth/services/tokenManager';
 import { User } from '../features/auth/types/auth.types';
 
-/**
- * Authentication Store
- * 
- * Manages global authentication state using Zustand.
- * Integrates with AuthService and TokenManager for authentication operations.
- * 
- * Requirements: 1.3, 1.4, 1.5, 2.1, 2.2, 2.3
- */
-
 interface AuthState {
     user: User | null;
     token: string | null;
@@ -30,13 +21,9 @@ const useAuthStore = create<AuthState>((set, _get) => ({
     user: null,
     token: null,
     isAuthenticated: false,
-    isLoading: false, // Start with false, will be set to true when checkAuth is called
+    isLoading: false,
     error: null,
 
-    /**
-     * Check for existing authentication token on app launch
-     * Validates stored token and restores user session if valid
-     */
     checkAuth: async () => {
         console.log('[AuthStore] checkAuth started');
         try {
@@ -56,12 +43,10 @@ const useAuthStore = create<AuthState>((set, _get) => ({
                 return;
             }
 
-            // Validate token
             const isValid = await AuthService.validateToken(token);
             console.log('[AuthStore] Token validation result:', isValid);
 
             if (!isValid) {
-                // Token is invalid or expired, clear it
                 console.log('[AuthStore] Token invalid, clearing');
                 await TokenManager.deleteToken();
                 set({
@@ -73,8 +58,6 @@ const useAuthStore = create<AuthState>((set, _get) => ({
                 return;
             }
 
-            // Token is valid, decode user info from token
-            // For demo purposes, extract user from token payload
             try {
                 const parts = token.split('.');
                 const payload = JSON.parse(decode(parts[1]));
@@ -93,7 +76,6 @@ const useAuthStore = create<AuthState>((set, _get) => ({
                     isLoading: false
                 });
             } catch (decodeError) {
-                // If we can't decode the token, treat it as invalid
                 console.log('[AuthStore] Token decode error:', decodeError);
                 await TokenManager.deleteToken();
                 set({
@@ -105,7 +87,6 @@ const useAuthStore = create<AuthState>((set, _get) => ({
             }
         } catch (error) {
             console.error('[AuthStore] Error checking authentication:', error);
-            // CRITICAL: Always set isLoading to false even on error
             set({
                 user: null,
                 token: null,
@@ -114,19 +95,10 @@ const useAuthStore = create<AuthState>((set, _get) => ({
                 error: 'Failed to check authentication status'
             });
         } finally {
-            // Extra safety: ensure isLoading is always set to false
             console.log('[AuthStore] checkAuth completed');
         }
     },
 
-    /**
-     * Login with email and password
-     * Stores token and user data on successful authentication
-     * 
-     * @param email - User email address
-     * @param password - User password
-     * @throws Error with user-friendly message if login fails
-     */
     login: async (email: string, password: string) => {
         try {
             set({ isLoading: true, error: null });
@@ -157,19 +129,12 @@ const useAuthStore = create<AuthState>((set, _get) => ({
         }
     },
 
-    /**
-     * Login with Google OAuth
-     * Initiates Google Sign-In flow and stores token and user data on success
-     * 
-     * @throws Error with user-friendly message if login fails
-     */
     loginWithGoogle: async () => {
         try {
             set({ isLoading: true, error: null });
 
             const response = await AuthService.loginWithGoogle();
 
-            // Include picture field from Google user data
             const user: User = {
                 ...response.user,
                 picture: response.user.picture,
@@ -199,10 +164,6 @@ const useAuthStore = create<AuthState>((set, _get) => ({
         }
     },
 
-    /**
-     * Logout user
-     * Clears token, user data, and authentication state
-     */
     logout: async () => {
         try {
             set({ isLoading: true, error: null });
@@ -230,10 +191,6 @@ const useAuthStore = create<AuthState>((set, _get) => ({
         }
     },
 
-    /**
-     * Clear error message
-     * Useful for dismissing error messages in UI
-     */
     clearError: () => {
         set({ error: null });
     },

@@ -51,7 +51,6 @@ const SettingsScreen: React.FC = () => {
           onPress: async () => {
             try {
               await logout();
-              // Clear React Query cache on logout
               queryClient.clear();
             } catch {
               Alert.alert(

@@ -1,12 +1,3 @@
-/**
- * Error Logger Service
- * 
- * Provides structured error logging with timestamp, type, endpoint, status, and message.
- * Sanitizes sensitive data from logs to prevent exposure of credentials or tokens.
- * 
- * Requirements: 7.2, 7.3, 7.4
- */
-
 export type ErrorType = 'network' | 'api' | 'auth' | 'validation';
 
 export interface ErrorLog {
@@ -20,12 +11,8 @@ export interface ErrorLog {
 }
 
 class ErrorLoggerService {
-    /**
-     * Sanitize sensitive data from error messages and objects
-     */
     private sanitize(data: any): any {
         if (typeof data === 'string') {
-            // Remove tokens, passwords, and other sensitive patterns
             return data
                 .replace(/Bearer\s+[\w-]+\.[\w-]+\.[\w-]+/gi, 'Bearer [REDACTED]')
                 .replace(/token["\s:]+[\w-]+\.[\w-]+\.[\w-]+/gi, 'token: [REDACTED]')
@@ -51,9 +38,6 @@ class ErrorLoggerService {
         return data;
     }
 
-    /**
-     * Log an error with structured format
-     */
     log(errorLog: Omit<ErrorLog, 'timestamp'>): void {
         const sanitizedLog: ErrorLog = {
             timestamp: new Date().toISOString(),
@@ -65,7 +49,6 @@ class ErrorLoggerService {
             userId: errorLog.userId,
         };
 
-        // In development, log to console with formatting
         if (typeof __DEV__ !== 'undefined' && __DEV__) {
             const prefix = this.getLogPrefix(sanitizedLog.type);
             console.error(
@@ -73,21 +56,14 @@ class ErrorLoggerService {
                 this.formatLogMessage(sanitizedLog),
             );
         } else {
-            // Always log in test environment or when __DEV__ is not defined
             const prefix = this.getLogPrefix(sanitizedLog.type);
             console.error(
                 `${prefix} [${sanitizedLog.timestamp}]`,
                 this.formatLogMessage(sanitizedLog),
             );
         }
-
-        // In production, this would send to a logging service (e.g., Sentry, LogRocket)
-        // For now, we just log to console
     }
 
-    /**
-     * Get log prefix based on error type
-     */
     private getLogPrefix(type: ErrorType): string {
         switch (type) {
             case 'network':
@@ -103,9 +79,6 @@ class ErrorLoggerService {
         }
     }
 
-    /**
-     * Format log message for console output
-     */
     private formatLogMessage(log: ErrorLog): string {
         const parts: string[] = [];
 
@@ -128,9 +101,6 @@ class ErrorLoggerService {
         return parts.join(' | ');
     }
 
-    /**
-     * Log a network error
-     */
     logNetworkError(endpoint: string, method: string, message: string): void {
         this.log({
             type: 'network',
@@ -140,9 +110,6 @@ class ErrorLoggerService {
         });
     }
 
-    /**
-     * Log an API error
-     */
     logApiError(
         endpoint: string,
         method: string,
@@ -158,9 +125,6 @@ class ErrorLoggerService {
         });
     }
 
-    /**
-     * Log an authentication error
-     */
     logAuthError(message: string, endpoint?: string): void {
         this.log({
             type: 'auth',
@@ -169,9 +133,6 @@ class ErrorLoggerService {
         });
     }
 
-    /**
-     * Log a validation error
-     */
     logValidationError(message: string): void {
         this.log({
             type: 'validation',
@@ -180,5 +141,4 @@ class ErrorLoggerService {
     }
 }
 
-// Export singleton instance
 export const errorLogger = new ErrorLoggerService();

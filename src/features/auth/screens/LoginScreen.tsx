@@ -19,30 +19,21 @@ const LoginScreen: React.FC = () => {
   const theme = useAppTheme();
   const { login, loginWithGoogle, isLoading, error, clearError } = useAuth();
 
-  // Form state
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  // Validation error state
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
 
-  // Refs for input focus management
   const passwordInputRef = React.useRef<TextInput>(null);
 
-  /**
-   * Validate form fields
-   * @returns true if all fields are valid
-   */
   const validateForm = (): boolean => {
     let isValid = true;
 
-    // Clear previous errors
     setEmailError('');
     setPasswordError('');
     clearError();
 
-    // Validate email
     if (!email.trim()) {
       setEmailError('Email is required');
       isValid = false;
@@ -51,7 +42,6 @@ const LoginScreen: React.FC = () => {
       isValid = false;
     }
 
-    // Validate password
     if (!password) {
       setPasswordError('Password is required');
       isValid = false;
@@ -63,46 +53,30 @@ const LoginScreen: React.FC = () => {
     return isValid;
   };
 
-  /**
-   * Handle login form submission
-   */
   const handleLogin = async () => {
-    // Dismiss keyboard
     Keyboard.dismiss();
 
-    // Validate form
     if (!validateForm()) {
       return;
     }
 
     try {
       await login(email, password);
-      // Navigation to app stack is handled by RootNavigator
     } catch (err) {
-      // Error is already set in the auth store
       console.error('Login error:', err);
     }
   };
 
-  /**
-   * Handle Google Sign-In button press
-   */
   const handleGoogleSignIn = async () => {
     try {
       await loginWithGoogle();
-      // Navigation to app stack is handled by RootNavigator
     } catch (err) {
-      // Error is already set in the auth store
       console.error('Google Sign-In error:', err);
     }
   };
 
-  /**
-   * Handle email input change
-   */
   const handleEmailChange = (text: string) => {
     setEmail(text);
-    // Clear email error when user starts typing
     if (emailError) {
       setEmailError('');
     }
@@ -111,12 +85,8 @@ const LoginScreen: React.FC = () => {
     }
   };
 
-  /**
-   * Handle password input change
-   */
   const handlePasswordChange = (text: string) => {
     setPassword(text);
-    // Clear password error when user starts typing
     if (passwordError) {
       setPasswordError('');
     }
@@ -134,13 +104,10 @@ const LoginScreen: React.FC = () => {
     >
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <View style={styles.inner}>
-          {/* Login Card */}
           <View style={styles.card}>
-            {/* Title */}
             <Text style={styles.title}>Welcome Back</Text>
             <Text style={styles.subtitle}>Sign in to continue</Text>
 
-            {/* Email Input */}
             <View style={styles.inputContainer}>
               <Text style={styles.label}>Email</Text>
               <TextInput
@@ -173,7 +140,6 @@ const LoginScreen: React.FC = () => {
               ) : null}
             </View>
 
-            {/* Password Input */}
             <View style={styles.inputContainer}>
               <Text style={styles.label}>Password</Text>
               <TextInput
@@ -205,7 +171,6 @@ const LoginScreen: React.FC = () => {
               ) : null}
             </View>
 
-            {/* Global Error Message */}
             {error ? (
               <View 
                 style={styles.globalErrorContainer}
@@ -216,7 +181,6 @@ const LoginScreen: React.FC = () => {
               </View>
             ) : null}
 
-            {/* Login Button - Requirement 11.8: Touchable feedback */}
             <TouchableOpacity
               style={[
                 styles.button,
@@ -224,7 +188,7 @@ const LoginScreen: React.FC = () => {
               ]}
               onPress={handleLogin}
               disabled={isLoading}
-              activeOpacity={0.7} // Visual feedback on press (Requirement 11.8)
+              activeOpacity={0.7}
               accessibilityLabel="Sign in"
               accessibilityHint="Double tap to sign in with your email and password"
               accessibilityRole="button"
@@ -241,14 +205,12 @@ const LoginScreen: React.FC = () => {
               )}
             </TouchableOpacity>
 
-            {/* Divider */}
             <View style={styles.dividerContainer}>
               <View style={styles.divider} />
               <Text style={styles.dividerText}>OR</Text>
               <View style={styles.divider} />
             </View>
 
-            {/* Google Sign-In Button */}
             <TouchableOpacity
               style={[
                 styles.googleButton,
@@ -278,16 +240,6 @@ const LoginScreen: React.FC = () => {
   );
 };
 
-/**
- * Create styles based on theme
- * 
- * Implements modern UI design with:
- * - 8pt spacing system (Requirement 11.1)
- * - Rounded corners (8px/12px) (Requirement 11.2)
- * - Soft shadows for card elevation (Requirement 11.3)
- * - Clear typography hierarchy (Requirement 11.4)
- * - Centered form with card-based layout (Requirement 11.5)
- */
 const createStyles = (theme: any) =>
   StyleSheet.create({
     container: {
@@ -297,82 +249,82 @@ const createStyles = (theme: any) =>
     inner: {
       flex: 1,
       justifyContent: 'center',
-      padding: theme.spacing.xxl, // 24px spacing (Requirement 11.1)
+      padding: theme.spacing.xxl,
     },
     card: {
       backgroundColor: theme.colors.card,
-      borderRadius: theme.borderRadius.lg, // 12px rounded corners (Requirement 11.2)
-      padding: theme.spacing.xxxl, // 32px internal spacing (Requirement 11.1)
-      ...theme.shadows.card, // Soft shadow for elevation (Requirement 11.3)
+      borderRadius: theme.borderRadius.lg,
+      padding: theme.spacing.xxxl,
+      ...theme.shadows.card,
     },
     title: {
-      ...theme.typography.heading, // Typography hierarchy (Requirement 11.4)
-      marginBottom: theme.spacing.sm, // 8px spacing (Requirement 11.1)
+      ...theme.typography.heading,
+      marginBottom: theme.spacing.sm,
       textAlign: 'center',
     },
     subtitle: {
-      ...theme.typography.body, // Typography hierarchy (Requirement 11.4)
+      ...theme.typography.body,
       color: theme.colors.text.secondary,
-      marginBottom: theme.spacing.xxxl, // 32px spacing (Requirement 11.1)
+      marginBottom: theme.spacing.xxxl,
       textAlign: 'center',
     },
     inputContainer: {
-      marginBottom: theme.spacing.xl, // 20px spacing (Requirement 11.1)
+      marginBottom: theme.spacing.xl,
     },
     label: {
-      ...theme.typography.label, // Typography hierarchy (Requirement 11.4)
-      marginBottom: theme.spacing.sm, // 8px spacing (Requirement 11.1)
+      ...theme.typography.label,
+      marginBottom: theme.spacing.sm,
     },
     input: {
-      ...theme.typography.body, // Typography hierarchy (Requirement 11.4)
+      ...theme.typography.body,
       backgroundColor: theme.colors.surface,
       borderWidth: 1,
       borderColor: theme.colors.border,
-      borderRadius: theme.borderRadius.md, // 8px rounded corners (Requirement 11.2)
-      padding: theme.spacing.md, // 12px internal spacing (Requirement 11.1)
+      borderRadius: theme.borderRadius.md,
+      padding: theme.spacing.md,
       color: theme.colors.text.primary,
-      minHeight: 48, // Minimum touch target size for accessibility
+      minHeight: 48,
     },
     inputError: {
       borderColor: theme.colors.error,
     },
     errorText: {
-      ...theme.typography.caption, // Typography hierarchy (Requirement 11.4)
+      ...theme.typography.caption,
       color: theme.colors.error,
-      marginTop: theme.spacing.xs, // 4px spacing (Requirement 11.1)
+      marginTop: theme.spacing.xs,
     },
     globalErrorContainer: {
       backgroundColor: `${theme.colors.error}15`,
-      borderRadius: theme.borderRadius.md, // 8px rounded corners (Requirement 11.2)
-      padding: theme.spacing.md, // 12px spacing (Requirement 11.1)
-      marginBottom: theme.spacing.lg, // 16px spacing (Requirement 11.1)
+      borderRadius: theme.borderRadius.md,
+      padding: theme.spacing.md,
+      marginBottom: theme.spacing.lg,
     },
     globalErrorText: {
-      ...theme.typography.body, // Typography hierarchy (Requirement 11.4)
+      ...theme.typography.body,
       color: theme.colors.error,
       textAlign: 'center',
     },
     button: {
       backgroundColor: theme.colors.primary,
-      borderRadius: theme.borderRadius.md, // 8px rounded corners (Requirement 11.2)
-      padding: theme.spacing.lg, // 16px spacing (Requirement 11.1)
+      borderRadius: theme.borderRadius.md,
+      padding: theme.spacing.lg,
       alignItems: 'center',
-      marginTop: theme.spacing.lg, // 16px spacing (Requirement 11.1)
-      minHeight: 48, // Minimum touch target size for accessibility
-      ...theme.shadows.card, // Soft shadow for button elevation (Requirement 11.3)
+      marginTop: theme.spacing.lg,
+      minHeight: 48,
+      ...theme.shadows.card,
     },
     buttonDisabled: {
       opacity: 0.6,
     },
     buttonText: {
-      ...theme.typography.subheading, // Typography hierarchy (Requirement 11.4)
+      ...theme.typography.subheading,
       color: theme.colors.text.inverse,
       fontWeight: '600',
     },
     dividerContainer: {
       flexDirection: 'row',
       alignItems: 'center',
-      marginVertical: theme.spacing.xl, // 20px spacing
+      marginVertical: theme.spacing.xl,
     },
     divider: {
       flex: 1,
@@ -382,14 +334,14 @@ const createStyles = (theme: any) =>
     dividerText: {
       ...theme.typography.caption,
       color: theme.colors.text.secondary,
-      marginHorizontal: theme.spacing.md, // 12px spacing
+      marginHorizontal: theme.spacing.md,
     },
     googleButton: {
       backgroundColor: theme.colors.card,
-      borderRadius: theme.borderRadius.md, // 8px rounded corners
-      padding: theme.spacing.lg, // 16px spacing
+      borderRadius: theme.borderRadius.md,
+      padding: theme.spacing.lg,
       alignItems: 'center',
-      minHeight: 48, // Minimum touch target size
+      minHeight: 48,
       borderWidth: 1,
       borderColor: theme.colors.border,
       ...theme.shadows.card,

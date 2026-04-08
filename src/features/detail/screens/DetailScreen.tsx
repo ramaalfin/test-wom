@@ -12,32 +12,6 @@ import { useErrorHandler } from '../../../hooks/useErrorHandler';
 
 type DetailScreenProps = NativeStackScreenProps<AppStackParamList, 'Detail'>;
 
-/**
- * DetailScreen Component
- * 
- * Displays detailed information about a single item from JSONPlaceholder API.
- * Replaces the old movie detail screen with a simpler, generic item detail view.
- * 
- * Requirements:
- * - 6.1: Navigate to detail screen with item ID
- * - 6.2: Fetch detailed data from Public API
- * - 6.3: Reuse CardItem component for consistency
- * - 6.4: Display skeleton loaders during loading
- * - 6.5: Display error state with retry button
- * - 6.6: Display empty state when no data
- * - 6.7: Structured layout with clear typography hierarchy
- * - 11.4: Clear typography hierarchy
- * - 11.7: Structured layout with visual hierarchy
- * - 18.7: Use generic item types and endpoints
- * 
- * Features:
- * - Uses useItemDetail hook for data fetching
- * - Displays LoadingSkeleton during loading (not ActivityIndicator)
- * - Displays ErrorState with retry functionality
- * - Displays EmptyState when no data returned
- * - Reuses CardItem component for consistent styling
- * - Clean, minimal layout focused on content
- */
 const DetailScreen: React.FC<DetailScreenProps> = ({route}) => {
   const {itemId} = route.params;
   const theme = useAppTheme();
@@ -45,10 +19,6 @@ const DetailScreen: React.FC<DetailScreenProps> = ({route}) => {
 
   const {data: item, isLoading, isError, error, refetch} = useItemDetail(itemId);
 
-  /**
-   * Loading State
-   * Requirements: 6.4 - Display skeleton loaders during loading
-   */
   if (isLoading) {
     return (
       <View 
@@ -63,11 +33,6 @@ const DetailScreen: React.FC<DetailScreenProps> = ({route}) => {
     );
   }
 
-  /**
-   * Error State
-   * Requirements: 6.5 - Display error state with retry button
-   * Requirements: 14.1, 14.2, 14.3 - Network error detection and user-friendly messages
-   */
   if (isError) {
     const errorInfo = getErrorDisplayInfo(error);
     return (
@@ -82,10 +47,6 @@ const DetailScreen: React.FC<DetailScreenProps> = ({route}) => {
     );
   }
 
-  /**
-   * Empty State
-   * Requirements: 6.6 - Display empty state when no data
-   */
   if (!item) {
     return (
       <View style={[styles.container, {backgroundColor: theme.colors.background}]}>
@@ -97,14 +58,6 @@ const DetailScreen: React.FC<DetailScreenProps> = ({route}) => {
     );
   }
 
-  /**
-   * Success State
-   * Requirements:
-   * - 6.3: Reuse CardItem component for consistency
-   * - 6.7: Structured layout with clear typography hierarchy
-   * - 11.4: Clear typography hierarchy
-   * - 11.7: Structured layout with visual hierarchy
-   */
   return (
     <ScrollView 
       style={[styles.container, {backgroundColor: theme.colors.background}]}
@@ -114,7 +67,7 @@ const DetailScreen: React.FC<DetailScreenProps> = ({route}) => {
       <View style={[styles.content, {padding: theme.spacing.lg}]}>
         <CardItem
           item={item}
-          onPress={() => {}} // No-op since we're already on detail screen
+          onPress={() => {}}
         />
       </View>
     </ScrollView>

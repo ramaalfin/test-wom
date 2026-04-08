@@ -2,20 +2,6 @@ import React, { useEffect } from 'react';
 import { View, ActivityIndicator, StyleSheet, Text } from 'react-native';
 import useAppTheme from '../hooks/useAppTheme';
 
-/**
- * SplashScreen Component
- * 
- * Displays a loading indicator while checking authentication status.
- * Shown during app initialization before determining which navigation stack to render.
- * 
- * Requirements: 4.1 - Authentication Navigation Flow
- * 
- * Features:
- * - Centered loading indicator
- * - Theme-aware background color
- * - Minimal, clean design
- * - Debug logging for troubleshooting
- */
 const SplashScreen: React.FC = () => {
   const theme = useAppTheme();
 

@@ -89,6 +89,14 @@ const HomeScreen: React.FC = () => {
     navigation.navigate('Detail', { itemId: id });
   };
 
+  const ESTIMATED_ITEM_HEIGHT = 156;
+
+  const getItemLayout = (_data: any, index: number) => ({
+    length: ESTIMATED_ITEM_HEIGHT,
+    offset: ESTIMATED_ITEM_HEIGHT * index,
+    index,
+  });
+
   const renderHeader = () => (
     <View 
       style={styles.header}
@@ -180,6 +188,10 @@ const HomeScreen: React.FC = () => {
         contentContainerStyle={styles.list}
         ListHeaderComponent={renderHeader}
         initialNumToRender={10}
+        maxToRenderPerBatch={10}
+        windowSize={5}
+        removeClippedSubviews={true}
+        getItemLayout={getItemLayout}
         refreshControl={
           <RefreshControl
             refreshing={isRefetching}
