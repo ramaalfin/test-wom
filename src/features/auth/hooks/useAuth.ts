@@ -49,7 +49,8 @@ export const useAuth = () => {
      */
     useEffect(() => {
         checkAuth();
-    }, [checkAuth]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     /**
      * Login wrapper with enhanced error handling

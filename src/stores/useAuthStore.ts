@@ -37,12 +37,15 @@ const useAuthStore = create<AuthState>((set, get) => ({
      * Validates stored token and restores user session if valid
      */
     checkAuth: async () => {
+        console.log('[AuthStore] checkAuth started');
         try {
             set({ isLoading: true, error: null });
 
             const token = await TokenManager.getToken();
+            console.log('[AuthStore] Token retrieved:', token ? 'exists' : 'null');
 
             if (!token) {
+                console.log('[AuthStore] No token found, setting unauthenticated');
                 set({
                     user: null,
                     token: null,
@@ -54,9 +57,11 @@ const useAuthStore = create<AuthState>((set, get) => ({
 
             // Validate token
             const isValid = await AuthService.validateToken(token);
+            console.log('[AuthStore] Token validation result:', isValid);
 
             if (!isValid) {
                 // Token is invalid or expired, clear it
+                console.log('[AuthStore] Token invalid, clearing');
                 await TokenManager.deleteToken();
                 set({
                     user: null,
@@ -78,6 +83,7 @@ const useAuthStore = create<AuthState>((set, get) => ({
                     name: payload.name,
                 };
 
+                console.log('[AuthStore] User authenticated:', user.email);
                 set({
                     user,
                     token,
@@ -86,6 +92,7 @@ const useAuthStore = create<AuthState>((set, get) => ({
                 });
             } catch (decodeError) {
                 // If we can't decode the token, treat it as invalid
+                console.log('[AuthStore] Token decode error:', decodeError);
                 await TokenManager.deleteToken();
                 set({
                     user: null,
@@ -95,7 +102,7 @@ const useAuthStore = create<AuthState>((set, get) => ({
                 });
             }
         } catch (error) {
-            console.error('Error checking authentication:', error);
+            console.error('[AuthStore] Error checking authentication:', error);
             set({
                 user: null,
                 token: null,
