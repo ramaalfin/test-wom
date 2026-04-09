@@ -122,6 +122,14 @@ openssl rand -hex 32
 
 ## 🏃 Menjalankan Aplikasi
 
+### Download APK (Android)
+
+Untuk testing cepat tanpa build, download APK yang sudah di-build:
+
+📦 **[Download APK di sini](builds/README.md)** - Lihat instruksi download di folder builds
+
+> APK tidak di-commit ke Github. Link download tersedia di Google Drive/Dropbox/OneDrive.
+
 ### iOS
 
 ```bash
@@ -153,6 +161,28 @@ Jika mengalami masalah, coba reset cache:
 ```bash
 npm run reset
 ```
+
+### Build APK untuk Distribution
+
+Build APK untuk testing atau distribution:
+
+```bash
+# Build Debug APK (untuk testing)
+npm run build:apk:debug
+
+# Build Release APK (untuk production)
+npm run build:apk:release
+```
+
+APK akan tersimpan di folder `builds/` dengan timestamp.
+
+**Cara share APK:**
+1. Build APK menggunakan command di atas
+2. Upload APK ke cloud storage (Google Drive, Dropbox, OneDrive, WeTransfer)
+3. Get shareable link
+4. Update link di `builds/README.md`
+
+Lihat [builds/README.md](builds/README.md) untuk instruksi lengkap.
 
 ## 🔑 Kredensial Login
 
@@ -261,6 +291,7 @@ npm run reset
 ### Development
 - [Form Validation](docs/FORM_VALIDATION.md) - Implementasi React Hook Form dan Zod
 - [Fixes Documentation](docs/FIXES.md) - Bug fixes yang sudah dilakukan
+- [APK Distribution](docs/APK_DISTRIBUTION.md) - Panduan build dan distribute APK
 
 ### Testing
 - [Integration Testing Guide](docs/INTEGRATION_TESTING_GUIDE.md) - Panduan testing lengkap

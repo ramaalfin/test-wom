@@ -60,6 +60,10 @@ yarn-error.log
 # Bundle artifact
 *.jsbundle
 
+# APK & AAB files (Android builds)
+*.apk
+*.aab
+
 # Ruby / CocoaPods
 **/Pods/
 /vendor/bundle/

@@ -1,0 +1,6 @@
+# Ignore all APK files in builds folder
+*.apk
+*.aab
+
+# But keep this folder in git
+!.gitignore

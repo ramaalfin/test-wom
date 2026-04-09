@@ -9,7 +9,9 @@
     "start": "react-native start",
     "test": "jest",
     "clean": "rm -rf node_modules/.cache && watchman watch-del-all || true",
-    "reset": "npm run clean && npx react-native start --reset-cache"
+    "reset": "npm run clean && npx react-native start --reset-cache",
+    "build:apk:debug": "./scripts/build-apk.sh debug",
+    "build:apk:release": "./scripts/build-apk.sh release"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
